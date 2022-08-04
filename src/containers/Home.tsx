@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Button, Card } from 'antd';
 import '../css/Home.css';
+import SearchBar from "../components/SearchBar";
 const Home = () => {
     const { Meta } = Card;
     return (
         <div className="mainClass">
+            <SearchBar />
             <Card
                 hoverable
                 style={{ width: 240 }}
