@@ -1,4 +1,10 @@
-.mainClass{
-    max-width: 1400px;
+.mainClass {
+    max-width: 1280px;
     margin: 0 auto;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
