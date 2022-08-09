@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card, Col, Row } from 'antd';
 import '../css/Home.css';
 import SearchBar from "../components/SearchBar";
