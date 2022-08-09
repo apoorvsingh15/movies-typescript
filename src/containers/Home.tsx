@@ -14,15 +14,31 @@ interface IMovieList {
 const Home = () => {
     const [movies, setMovies] = useState<string[]>([]);
     const [page, setPage] = useState<number>(1);
+    const [movieName, setMovieName] = useState<string>('');
     const { Meta } = Card;
 
-    const getMoviesToDisplay = async () => {
+    const getMoviesToDisplayOnLoadMore = async () => {
         try {
-            const movieList: IMovieList = await getDefaultMovies(page);
+            const movieList: IMovieList = await getDefaultMovies(page, movieName);
             setMovies([...movies, ...movieList.data.Search])
         } catch (err) {
-            console.log('Something went Wrong')
+            console.log(err, "Something went wrong");
         }
+    }
+
+    const getMoviesToDisplayOnSearch = async () => {
+        try {
+            const movieList: IMovieList = await getDefaultMovies(1, movieName);
+            setMovies(movieList.data.Search)
+        } catch (err) {
+            console.log(err, "Something went wrong");
+        }
+    }
+
+    // Reverse - Get movie name from child to parent
+    const getMovieName = async (movieName: string) => {
+        setMovieName(movieName)
+        setPage(1);
     }
 
     const onClickLoadMore = () => {
@@ -30,18 +46,21 @@ const Home = () => {
     }
 
     useEffect(() => {
-        getMoviesToDisplay();
+        getMoviesToDisplayOnLoadMore();
     }, [page]);
 
-    console.log(movies)
-
+    useEffect(() => {
+        getMoviesToDisplayOnSearch();
+    }, [movieName]);
 
     return (
         <div className="mainClass">
-            <SearchBar />
+            <SearchBar
+                getMovieName={getMovieName}
+            />
             <Row gutter={16}>
                 {
-                    movies?.length && movies?.map((singleMovie: any) => (
+                    movies?.length ? movies?.map((singleMovie: any) => (
                         <Col
                             className="gutter-row"
                             span={6}
@@ -60,7 +79,7 @@ const Home = () => {
                                 />
                             </Card>
                         </Col>
-                    ))
+                    )) : null
                 }
             </Row>
             {movies?.length ? <div className="buttonContainer">

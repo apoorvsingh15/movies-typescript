@@ -9,9 +9,10 @@ interface IResponse {
 
 
 
-export const getDefaultMovies = async (page: Number): Promise<IResponse> => {
+export const getDefaultMovies = async (page: Number, movieName: string): Promise<IResponse> => {
+    console.log(movieName)
     try {
-        const response = await axios.get(`${BASE_URL}/?s=Batman&apikey=${API_KEY}&page=${page}`);
+        const response = await axios.get(`${BASE_URL}/?s=${movieName ? movieName : 'Batman'}&apikey=${API_KEY}&page=${page}`);
         console.log(response);
         return response;
 
