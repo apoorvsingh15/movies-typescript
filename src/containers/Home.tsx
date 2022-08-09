@@ -47,10 +47,12 @@ const Home = () => {
 
     useEffect(() => {
         getMoviesToDisplayOnLoadMore();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page]);
 
     useEffect(() => {
         getMoviesToDisplayOnSearch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [movieName]);
 
     return (
